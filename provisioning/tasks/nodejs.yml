@@ -1,0 +1,13 @@
+- name: Execute the nvm installation script
+  become: no
+  shell: curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+  
+- name: Source bash profile.
+  become: no
+  shell: . $HOME/.profile
+  
+- name: Install the specified node version using the nvm command and set it as default
+  become: no
+  shell: '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm install v{{ node_version }}'
+  environment:
+    NVM_DIR: /home/vagrant/.nvm

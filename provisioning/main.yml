@@ -1,0 +1,12 @@
+- hosts: all
+  user: vagrant
+  become: yes
+  become_method: sudo
+  vars:
+    node_version: 6.9.4
+
+  tasks:
+    - include: tasks/installPackages.yml
+    - include: tasks/mongodb.yml
+    - include: tasks/nodejs.yml
+    - include: tasks/others.yml

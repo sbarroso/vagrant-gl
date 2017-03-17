@@ -1,0 +1,22 @@
+- name: Install packages
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - npm
+      
+- name: Install Mocha via npm
+  npm: name=mocha global=yes
+
+- name: Install Typescript
+  npm: name=typescript global=yes
+
+- name: Install nodemon
+  npm: name=nodemon global=yes
+  
+- name: Install jshint
+  npm: name=jshint global=yes
+
+- name: Configure git name
+  git_config: name=user.name value="sbarroso"
+  
+- name: Configure git email
+  git_config: name=user.email value="sbarroso.dev@gmail.com"
