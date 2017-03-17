@@ -1,0 +1,1 @@
+Vagrant configuration that will install node, mongodb and some other tools
