@@ -1,0 +1,23 @@
+- name: Install recommended packages
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - linux-image-extra-{{ ansible_kernel }}
+    - linux-image-extra-virtual
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+- name: Download docker
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+- name: Add Docker repository
+  become: yes
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+- name: Update apt packages
+  become: yes
+  shell: apt-get update
+
+- name: Install Docker-ce
+  apt: name=docker-ce state=present update_cache=yes

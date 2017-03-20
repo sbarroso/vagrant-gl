@@ -10,3 +10,4 @@
     - include: tasks/mongodb.yml
     - include: tasks/nodejs.yml
     - include: tasks/others.yml
+    - include: tasks/docker.yml
