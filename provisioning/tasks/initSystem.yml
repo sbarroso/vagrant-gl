@@ -2,7 +2,6 @@
     apt: name={{ item }} state=present update_cache=yes
     with_items:
       - build-essential
-      - git
 
   - name: Update all packages to the latest version
     apt: upgrade=dist

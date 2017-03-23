@@ -6,8 +6,9 @@
     node_version: 6.9.4
 
   tasks:
-    - include: tasks/installPackages.yml
-    - include: tasks/mongodb.yml
+    - include: tasks/initSystem.yml
     - include: tasks/nodejs.yml
-    - include: tasks/others.yml
     - include: tasks/docker.yml
+    - include: tasks/mongodb.yml
+    - include: tasks/redis.yml
+    - include: tasks/tools.yml

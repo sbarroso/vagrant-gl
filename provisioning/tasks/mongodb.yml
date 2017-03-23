@@ -1,14 +1,14 @@
-- name: Fetch MongoDB signing key (use EA312927)
+- name: MongoDB -> Fetch MongoDB signing key (use EA312927)
   apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=EA312927
 
-- name: Add Mongo repository
+- name: MongoDB -> Add Mongo repository
   apt_repository: repo='deb http://repo.mongodb.org/apt/ubuntu {{ansible_distribution_release}}/mongodb-org/3.2 multiverse' state=present
 
-- name: Install MongoDB package
+- name: MongoDB -> Install MongoDB package
   apt: pkg=mongodb-org state=present
 
-- name: Remove the line containing the binding ip so we can connect to the database from remote (the host machine)
+- name: MongoDB -> Remove the line containing the binding ip so we can connect to the database from remote (the host machine)
   lineinfile: dest=/etc/mongod.conf regexp='^  bindIp' state=absent
 
-- name: Ensure MongoDB is running
-  service: name=mongod state=started
+- name: MongoDB -> Ensure the MongoDB is running (it is needed to restart because of the previous configuration file change)
+  service: name=mongod state=restarted

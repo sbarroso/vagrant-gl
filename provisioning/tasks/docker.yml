@@ -1,4 +1,4 @@
-- name: Install recommended packages
+- name: Docker -> Install recommended packages
   apt: name={{ item }} state=present update_cache=yes
   with_items:
     - linux-image-extra-{{ ansible_kernel }}
@@ -8,16 +8,28 @@
     - curl
     - software-properties-common
 
-- name: Download docker
+- name: Docker -> Download docker
   shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-- name: Add Docker repository
+- name: Docker -> Add repository
   become: yes
   shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-- name: Update apt packages
+- name: Docker -> Update apt packages
   become: yes
   shell: apt-get update
 
-- name: Install Docker-ce
+- name: Docker -> Install Docker-ce
   apt: name=docker-ce state=present update_cache=yes
+
+- name: Docker Compose -> Install docker-compose
+  become: yes
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+- name: Docker Compose -> Enable execute permissions to file docker-compose
+  become: yes
+  shell: chmod +x /usr/local/bin/docker-compose
+
+- name: Docker Machine -> Download the docker machine binary
+  become: yes
+  shell: curl -L https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine && chmod +x /tmp/docker-machine && cp /tmp/docker-machine /usr/local/bin/docker-machine

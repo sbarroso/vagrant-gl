@@ -1,0 +1,7 @@
+- name: Redis -> Install packages
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - redis-server
+
+- name: Redis -> Ensure the local redis can be accessed from local machine (from docker-compose)
+  lineinfile: dest=/etc/redis/redis.conf regexp='^bind' line="bind 127.0.0.1 192.168.99.1"

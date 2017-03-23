@@ -2,7 +2,9 @@
   apt: name={{ item }} state=present update_cache=yes
   with_items:
     - npm
-      
+    - inotify-tools
+    - git
+
 - name: Install Mocha via npm
   npm: name=mocha global=yes
 
