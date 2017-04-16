@@ -13,18 +13,26 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 8081, host: 8081
   config.vm.network "forwarded_port", guest: 27017, host: 27017
+  config.vm.network "forwarded_port", guest: 6379, host: 6379
+    
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "100.100.100.101"
+  # config.vm.network "private_network", ip: "100.100.100.101"
+  config.vm.network "private_network", ip: "192.168.99.1"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
 
-  # config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=777,fmode=777"]
-  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__args: ["--verbose", "--archive", "--delete", "-z"]
+  config.vm.synced_folder ".",
+                        "/vagrant",
+                        type: "rsync",
+                        rsync__args: ["--verbose", "--archive", "--delete", "-z"], 
+                        rsync__exclude: [
+                                '.git*', 'node_modules*', '*.log', '*.lnk'
+                        ]
 
     
   config.vm.provider "virtualbox" do |vb|
@@ -32,7 +40,7 @@ Vagrant.configure("2") do |config|
     # vb.gui = true
 
     #   # Customize the amount of memory on the VM:
-    vb.memory = "2048"
+    vb.memory = "4096"
     # vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
