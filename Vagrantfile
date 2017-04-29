@@ -16,9 +16,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 6379, host: 6379
     
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "100.100.100.101"
+  # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network "private_network", ip: "192.168.99.1"
 
   # Share an additional folder to the guest VM. The first argument is
@@ -39,7 +37,7 @@ Vagrant.configure("2") do |config|
     # Display the VirtualBox GUI when booting the machine
     # vb.gui = true
 
-    #   # Customize the amount of memory on the VM:
+    # Customize the amount of memory on the VM:
     vb.memory = "4096"
     # vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end

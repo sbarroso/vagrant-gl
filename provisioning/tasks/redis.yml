@@ -3,5 +3,5 @@
   with_items:
     - redis-server
 
-- name: Redis -> Ensure the local redis can be accessed from local machine (from docker-compose)
-  lineinfile: dest=/etc/redis/redis.conf regexp='^bind' line="bind 127.0.0.1 192.168.99.1"
+- name: Redis -> Ensure the local redis can be accessed from other interfaces (needed to be used with docker-compose for instance)
+  lineinfile: dest=/etc/redis/redis.conf regexp='^bind' line="bind 0.0.0.0"
