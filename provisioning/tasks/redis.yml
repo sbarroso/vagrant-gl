@@ -5,3 +5,6 @@
 
 - name: Redis -> Ensure the local redis can be accessed from other interfaces (needed to be used with docker-compose for instance)
   lineinfile: dest=/etc/redis/redis.conf regexp='^bind' line="bind 0.0.0.0"
+
+- name: Redis -> Restart the redis service to take into account the updated configuration
+  service: name=redis-server state=restarted
